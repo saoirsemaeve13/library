@@ -6,6 +6,12 @@
   padding: 0;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
 table {
   border-collapse: collapse;
   margin: auto;
@@ -17,7 +23,7 @@ tbody tr:nth-child(even) {
 
 td,
 th {
-  padding: 20px;
+  padding: 10px;
   border: 1px solid grey;
 }
 
@@ -28,7 +34,6 @@ svg {
 
 button {
   padding: 4px;
-  margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,11 +45,54 @@ button {
 
 form {
   display: grid;
-  width: 375px;
+  grid-template-columns: auto 1fr;
+  width: 400px;
+  margin: auto;
+}
+form > h3 {
+  grid-column: span 2;
+  text-align: center;
+}
+
+form > div {
+  grid-column: span 2;
+  display: flex;
+  padding: 5px;
+  gap: 10px;
+}
+
+form > div > input {
+  flex: 1 1;
+  border-radius: 8px;
+}
+
+:focus {
+  border-color: aqua;
+}
+
+form > * > button {
+  margin: auto;
+}
+
+td > button {
   margin: auto;
 }
 
 .formBtns {
   display: flex;
   gap: 40px;
+}
+
+#cancel-btn {
+  background-color: rgb(226, 66, 66);
+  color: white;
+}
+
+#submitBook {
+  background-color: green;
+  color: white;
+}
+
+.deleteBook:hover {
+  border: 2px solid red;
 }
