@@ -1,9 +1,8 @@
+const myLibrary = [];
+
 function Book(title, author, pages, read) {
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor.");
-  }
-  if (!Number.isInteger(pages) || pages <= 0) {
-    throw Error("Page count must be a whole number greater than 0.");
   }
   if (typeof read === "boolean") {
     this.read = read;
@@ -14,6 +13,7 @@ function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
+  this.id = crypto.randomUUID();
 
   const info = () => {
     console.log(
@@ -21,4 +21,52 @@ function Book(title, author, pages, read) {
     );
   };
   info();
+}
+
+function addBookToLibrary() {
+  let title;
+  while (true) {
+    title = prompt("Book title:");
+    if (title === null) return;
+    if (title.trim() !== "") {
+      title = title.trim();
+      break;
+    }
+    alert("Title cannot be empty. Please try again.");
+  }
+  let author;
+  while (true) {
+    author = prompt("Book author:");
+    if (author === null) return;
+    if (author.trim() !== "") {
+      author = author.trim();
+      break;
+    }
+  }
+  let pages;
+  while (true) {
+    pagesInput = prompt("Book page count:");
+    if (pagesInput === null) return;
+    const parsedPages = Number(pagesInput.trim());
+    if (
+      pagesInput.trim() !== "" &&
+      Number.isInteger(parsedPages) &&
+      parsedPages > 0
+    ) {
+      pages = parsedPages;
+      break;
+    }
+    alert("Please enter a valid whole number greater than 0.");
+  }
+  let read;
+  while (true) {
+    const readInput = prompt("Have you read this book? (yes/no)");
+    if (readInput === null) return;
+    const cleanRead = readInput.trim().toLowerCase();
+    if (cleanRead.startsWith("y") || cleanRead.startsWith("n")) {
+      read = cleanRead;
+      break;
+    }
+  }
+  myLibrary.push(new Book(title, author, pages, read));
 }
