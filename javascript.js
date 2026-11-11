@@ -42,14 +42,12 @@ function displayLibrary() {
     const authorCell = document.createElement("td");
     const pageCell = document.createElement("td");
     const readCell = document.createElement("td");
-    const idCell = document.createElement("td");
     const delCell = document.createElement("td");
 
     titleCell.textContent = element.title;
     authorCell.textContent = element.author;
     pageCell.textContent = element.pages;
     readCell.textContent = element.read ? "Yes" : "No";
-    idCell.textContent = element.id;
     delCell.append(delTemplate.content.cloneNode(true));
     const delBtn = delCell.querySelector("button");
     delBtn.classList.add("deleteBook");
@@ -58,7 +56,7 @@ function displayLibrary() {
       myLibrary.splice(index, 1);
       displayLibrary();
     });
-    row.append(titleCell, authorCell, pageCell, readCell, idCell, delCell);
+    row.append(titleCell, authorCell, pageCell, readCell, delCell);
     table.append(row);
   });
 }
