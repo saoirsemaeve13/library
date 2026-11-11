@@ -23,6 +23,10 @@ function Book(title, author, pages, read) {
   info();
 }
 
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
+
 function addBookToLibrary(title, author, pages, read) {
   const title1 = title;
   const author1 = author;
@@ -34,6 +38,8 @@ function addBookToLibrary(title, author, pages, read) {
 function displayLibrary() {
   const table = document.getElementById("libraryBooks");
   const delTemplate = document.getElementById("delete-button-template");
+  const readTemplate = document.getElementById("readTemplate");
+  const notReadTemplate = document.getElementById("notReadTemplate");
   table.textContent = "";
 
   myLibrary.forEach((element) => {
@@ -47,7 +53,16 @@ function displayLibrary() {
     titleCell.textContent = element.title;
     authorCell.textContent = element.author;
     pageCell.textContent = element.pages;
-    readCell.textContent = element.read ? "Yes" : "No";
+    readCell.append(
+      element.read
+        ? readTemplate.content.cloneNode(true)
+        : notReadTemplate.content.cloneNode(true),
+    );
+    const readButton = readCell.querySelector("button");
+    readButton.addEventListener("click", () => {
+      element.toggleRead();
+      displayLibrary();
+    });
     delCell.append(delTemplate.content.cloneNode(true));
     const delBtn = delCell.querySelector("button");
     delBtn.classList.add("deleteBook");
