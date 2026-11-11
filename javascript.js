@@ -70,3 +70,22 @@ function addBookToLibrary() {
   }
   myLibrary.push(new Book(title, author, pages, read));
 }
+
+function displayLibrary() {
+  myLibrary.forEach((element) => {
+    const table = document.getElementById("libraryBooks");
+    const row = document.createElement("tr");
+    const titleCell = document.createElement("th");
+    titleCell.textContent = element.title;
+    const authorCell = document.createElement("td");
+    authorCell.textContent = element.author;
+    const pageCell = document.createElement("td");
+    pageCell.textContent = element.pages;
+    const readCell = document.createElement("td");
+    readCell.textContent = element.read ? "Yes" : "No";
+    const idCell = document.createElement("td");
+    idCell.textContent = element.id;
+    row.append(titleCell, authorCell, pageCell, readCell, idCell);
+    table.append(row);
+  });
+}
