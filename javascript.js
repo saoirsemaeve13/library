@@ -23,69 +23,73 @@ function Book(title, author, pages, read) {
   info();
 }
 
-function addBookToLibrary() {
-  let title;
-  while (true) {
-    title = prompt("Book title:");
-    if (title === null) return;
-    if (title.trim() !== "") {
-      title = title.trim();
-      break;
-    }
-    alert("Title cannot be empty. Please try again.");
-  }
-  let author;
-  while (true) {
-    author = prompt("Book author:");
-    if (author === null) return;
-    if (author.trim() !== "") {
-      author = author.trim();
-      break;
-    }
-  }
-  let pages;
-  while (true) {
-    pagesInput = prompt("Book page count:");
-    if (pagesInput === null) return;
-    const parsedPages = Number(pagesInput.trim());
-    if (
-      pagesInput.trim() !== "" &&
-      Number.isInteger(parsedPages) &&
-      parsedPages > 0
-    ) {
-      pages = parsedPages;
-      break;
-    }
-    alert("Please enter a valid whole number greater than 0.");
-  }
-  let read;
-  while (true) {
-    const readInput = prompt("Have you read this book? (yes/no)");
-    if (readInput === null) return;
-    const cleanRead = readInput.trim().toLowerCase();
-    if (cleanRead.startsWith("y") || cleanRead.startsWith("n")) {
-      read = cleanRead;
-      break;
-    }
-  }
-  myLibrary.push(new Book(title, author, pages, read));
+function addBookToLibrary(title, author, pages, read) {
+  const title1 = title;
+  const author1 = author;
+  const pages1 = pages;
+  const read1 = read;
+  myLibrary.push(new Book(title1, author1, pages1, read1));
 }
 
 function displayLibrary() {
+  const table = document.getElementById("libraryBooks");
+  const delTemplate = document.getElementById("delete-button-template");
+  table.textContent = "";
+
   myLibrary.forEach((element) => {
-    const table = document.getElementById("libraryBooks");
     const row = document.createElement("tr");
     const titleCell = document.createElement("th");
-    titleCell.textContent = element.title;
     const authorCell = document.createElement("td");
-    authorCell.textContent = element.author;
     const pageCell = document.createElement("td");
-    pageCell.textContent = element.pages;
     const readCell = document.createElement("td");
-    readCell.textContent = element.read ? "Yes" : "No";
     const idCell = document.createElement("td");
+    const delCell = document.createElement("td");
+
+    titleCell.textContent = element.title;
+    authorCell.textContent = element.author;
+    pageCell.textContent = element.pages;
+    readCell.textContent = element.read ? "Yes" : "No";
     idCell.textContent = element.id;
-    row.append(titleCell, authorCell, pageCell, readCell, idCell);
+    delCell.append(delTemplate.content.cloneNode(true));
+    const delBtn = delCell.querySelector("button");
+    delBtn.classList.add("deleteBook");
+    delBtn.addEventListener("click", () => {
+      const index = myLibrary.findIndex((book) => book.id === element.id);
+      myLibrary.splice(index, 1);
+      displayLibrary();
+    });
+    row.append(titleCell, authorCell, pageCell, readCell, idCell, delCell);
     table.append(row);
   });
 }
+const addBookButton = document.getElementById("addBook");
+const bookDialog = document.getElementById("bookDialog");
+const cancelBtn = document.getElementById("cancel-btn");
+const formSection = document.getElementById("form-section");
+const bookForm = document.getElementById("bookForm");
+const submitBook = document.getElementById("submitBook");
+
+addBookButton.addEventListener("click", () => {
+  formSection.classList.toggle("hidden");
+});
+
+cancelBtn.addEventListener("click", () => {
+  bookForm.reset();
+  formSection.classList.toggle("hidden");
+});
+
+bookForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const titleInput = document.getElementById("title");
+  const authorInput = document.getElementById("author");
+  const pagesInput = document.getElementById("pages");
+  const readInput = document.getElementById("read");
+  const title = titleInput.value;
+  const author = authorInput.value;
+  const pages = Number(pagesInput.value);
+  const read = readInput.value;
+  addBookToLibrary(title, author, pages, read);
+  displayLibrary();
+  bookForm.reset();
+  titleInput.focus();
+});

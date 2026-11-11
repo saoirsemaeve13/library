@@ -20,3 +20,31 @@ th {
   padding: 20px;
   border: 1px solid grey;
 }
+
+svg {
+  height: 1em;
+  width: 1em;
+}
+
+button {
+  padding: 4px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+form {
+  display: grid;
+  width: 375px;
+  margin: auto;
+}
+
+.formBtns {
+  display: flex;
+  gap: 40px;
+}

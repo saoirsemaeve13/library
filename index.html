@@ -8,6 +8,38 @@
     <script src="javascript.js" defer></script>
   </head>
   <body>
+    <button id="addBook">Show Add Book Form</button>
+    <section id="form-section" class="hidden">
+      <form id="bookForm" method="dialog">
+        <h2>Add a New Book</h2>
+
+        <div>
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required />
+        </div>
+
+        <div>
+          <label for="author">Author:</label>
+          <input type="author" id="author" name="author" required />
+        </div>
+
+        <div>
+          <label for="pages">Pages:</label>
+          <input type="number" id="pages" name="pages" min="1" required />
+        </div>
+
+        <div>
+          <label for="read">
+            <input type="checkbox" id="read" name="read" />
+            I have read this book
+          </label>
+        </div>
+        <div class="formBtns">
+          <button type="button" id="cancel-btn">Cancel</button>
+          <button type="submit" id="submitBook">Add Book</button>
+        </div>
+      </form>
+    </section>
     <table>
       <caption>
         My Books
@@ -19,6 +51,7 @@
           <th>Pages</th>
           <th>Read</th>
           <th>ID</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody id="libraryBooks">
@@ -28,6 +61,16 @@
           <td>541</td>
           <td>Yes</td>
           <td>001</td>
+          <td class="deleteCell">
+            <button class="deleteBook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <title>trash-can-outline</title>
+                <path
+                  d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"
+                />
+              </svg>
+            </button>
+          </td>
         </tr>
         <tr>
           <th>Alloy of Law</th>
@@ -35,6 +78,16 @@
           <td>541</td>
           <td>Yes</td>
           <td>002</td>
+          <td class="deleteCell">
+            <button class="deleteBook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <title>trash-can-outline</title>
+                <path
+                  d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"
+                />
+              </svg>
+            </button>
+          </td>
         </tr>
         <tr>
           <th>Fahrenheit 541</th>
@@ -42,8 +95,27 @@
           <td>224</td>
           <td>No</td>
           <td>003</td>
+          <td class="deleteCell">
+            <button class="deleteBook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <title>trash-can-outline</title>
+                <path
+                  d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"
+                />
+              </svg>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
+    <template id="delete-button-template"
+      ><button class="deleteBook">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <title>trash-can-outline</title>
+          <path
+            d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"
+          />
+        </svg></button
+    ></template>
   </body>
 </html>
