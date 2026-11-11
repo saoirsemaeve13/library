@@ -87,7 +87,7 @@ bookForm.addEventListener("submit", (e) => {
   const title = titleInput.value;
   const author = authorInput.value;
   const pages = Number(pagesInput.value);
-  const read = readInput.value;
+  const read = readInput.checked;
   addBookToLibrary(title, author, pages, read);
   displayLibrary();
   bookForm.reset();
