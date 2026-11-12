@@ -33,6 +33,7 @@ function addBookToLibrary(title, author, pages, read) {
   const pages1 = pages;
   const read1 = read;
   myLibrary.push(new Book(title1, author1, pages1, read1));
+  saveLibrary();
 }
 
 function displayLibrary() {
@@ -62,6 +63,7 @@ function displayLibrary() {
     readButton.addEventListener("click", () => {
       element.toggleRead();
       displayLibrary();
+      saveLibrary();
     });
     delCell.append(delTemplate.content.cloneNode(true));
     const delBtn = delCell.querySelector("button");
@@ -70,6 +72,7 @@ function displayLibrary() {
       const index = myLibrary.findIndex((book) => book.id === element.id);
       myLibrary.splice(index, 1);
       displayLibrary();
+      saveLibrary();
     });
     row.append(titleCell, authorCell, pageCell, readCell, delCell);
     table.append(row);
@@ -106,3 +109,30 @@ bookForm.addEventListener("submit", (e) => {
   bookForm.reset();
   titleInput.focus();
 });
+
+function saveLibrary() {
+  const stringy = JSON.stringify(myLibrary);
+  localStorage.setItem("saveMyLibrary", stringy);
+}
+
+function loadLibrary() {
+  const saved = localStorage.getItem("saveMyLibrary");
+  if (saved === null) {
+    return;
+  }
+  const savedParse = JSON.parse(saved);
+
+  savedParse.forEach((item) => {
+    const restoredBook = new Book(
+      item.title,
+      item.author,
+      item.pages,
+      item.read,
+    );
+    restoredBook.id = item.id;
+    myLibrary.push(restoredBook);
+  });
+}
+
+loadLibrary();
+displayLibrary();
